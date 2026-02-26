@@ -10,6 +10,8 @@ module "storage" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
 
+  allowed_ip = "37.169.128.201"
+
   tags = {
     project = "ia-ocr"
     owner   = "admin"

@@ -12,7 +12,7 @@ resource "azurerm_storage_account" "storage" {
   network_rules {
     default_action = "Deny"
     bypass         = ["AzureServices"]
-    ip_rules       = ["37.169.128.201"]
+    ip_rules       = [var.allowed_ip]
   }
 
   tags = var.tags
@@ -34,4 +34,11 @@ resource "azurerm_storage_container" "tfstate" {
   name                  = "tfstate"
   storage_account_name  = azurerm_storage_account.storage.name
   container_access_type = "private"
+}
+
+resource "azurerm_role_assignment" "function_read_images" {
+  count                = var.function_app_id != null ? 1 : 0
+  scope                = azurerm_storage_container.images.id
+  role_definition_name = "Storage Blob Data Reader"
+  principal_id         = var.function_app_id
 }

@@ -22,3 +22,14 @@ variable "tags" {
   description = "Tags ressources"
   type        = map(string)
 }
+
+variable "function_app_id" {
+  type        = string
+  description = "ID Function App"
+  default     = null 
+}
+
+variable "allowed_ip" {
+  type        = string
+  description = "IP autorisée pour le firewall"
+}
