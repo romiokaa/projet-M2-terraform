@@ -35,3 +35,14 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Node
+node_modules/
+npm-debug.log
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+
+# Env
+.env
