@@ -37,3 +37,5 @@ variable "admin_email" {
   type        = string
   description = "Adresse email qui recevra les alertes de monitoring"
 }
+
+variable "suffix" { type = string }

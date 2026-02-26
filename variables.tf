@@ -1,7 +1,12 @@
-variable "location" { type = string }
-variable "project"  { type = string }
-variable "sku_name" { type = string }
-variable "tags"     { type = map(string) }
-variable "env" {
-  type = string
-}
+variable "location" { 
+    type = string 
+    default = "Switzerland North"
+    }
+variable "project"  { 
+    type = string 
+    default = "myproject"
+    }
+variable "sku_name" { 
+    type = string
+    default = "S1"
+    }

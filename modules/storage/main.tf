@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "storage" {
-  name                     = "${var.prefix}storage${var.environment}"
+  name                     = "${var.prefix}st${var.environment}${var.suffix}"
   resource_group_name      = var.resource_group_name
   location                 = var.location
   account_tier             = "Standard"
@@ -36,16 +36,16 @@ resource "azurerm_storage_container" "tfstate" {
   container_access_type = "private"
 }
 
-resource "azurerm_role_assignment" "function_read_images" {
-  count                = var.function_principal_id != null ? 1 : 0
-  scope                = azurerm_storage_container.images.id
-  role_definition_name = "Storage Blob Data Reader"
-  principal_id         = var.function_principal_id
-}
+# resource "azurerm_role_assignment" "function_read_images" {
+#   count                = var.function_principal_id != null ? 1 : 0
+#   scope                = azurerm_storage_container.images.id
+#   role_definition_name = "Storage Blob Data Reader"
+#   principal_id         = var.function_principal_id
+# }
 
-resource "azurerm_role_assignment" "function_write_results" {
-  count                = var.function_principal_id != null ? 1 : 0
-  scope                = azurerm_storage_container.results.id
-  role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = var.function_principal_id
-}
+# resource "azurerm_role_assignment" "function_write_results" {
+#   count                = var.function_principal_id != null ? 1 : 0
+#   scope                = azurerm_storage_container.results.id
+#   role_definition_name = "Storage Blob Data Contributor"
+#   principal_id         = var.function_principal_id
+# }

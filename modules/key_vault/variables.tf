@@ -4,6 +4,7 @@ variable "resource_group_name" {
 
 variable "location" { 
     type = string 
+    default = "Switzerland North"
     }
 
 variable "tenant_id" { 
@@ -13,10 +14,13 @@ variable "tenant_id" {
 variable "project" { 
     type = string 
     }
-variable "env" { 
-    type = string 
-    }
-    
+
+   
 variable "tags" { 
     type = map(string) 
     }
+
+variable "suffix" {
+    type = string
+    default = "iQdHuj"
+}

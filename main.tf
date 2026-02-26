@@ -1,3 +1,16 @@
+locals {
+  env      = terraform.workspace
+  project  = "ia-ocr"
+  sku_name = "S1"
+  suffix = random_string.suffix.result
+
+  tags = {
+    project = local.project
+    owner   = "admin"
+    env     = local.env
+  }
+}
+
 resource "azurerm_resource_group" "rg" {
   name     = "rg-ia"
   location = "Switzerland North"
@@ -9,16 +22,13 @@ module "storage" {
   environment         = terraform.workspace
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  function_principal_id = module.my_functions.function_identity_principal_id
-  
-  allowed_ip = "88.172.50.36"
-  admin_email = "maissaa.hachi@gmail.com"
+  function_principal_id = module.my_functions.function_identity_principal_id 
+  suffix = local.suffix
 
-  tags = {
-    project = "ia-ocr"
-    owner   = "admin"
-    env     = terraform.workspace
-  }
+  allowed_ip = "82.225.2.158"
+  admin_email = "brassica943@gmail.com"
+  tags                  = merge(local.tags, { component = "storage" })
+
 }
 
 data "azurerm_client_config" "current" {}
@@ -26,11 +36,11 @@ data "azurerm_client_config" "current" {}
 module "key_vault" {
   source              = "./modules/key_vault"
   resource_group_name = azurerm_resource_group.rg.name
-  location            = var.location
+  location            = azurerm_resource_group.rg.location
   tenant_id           = data.azurerm_client_config.current.tenant_id
   project             = var.project
-  env                 = var.env
-  tags                = var.tags
+  tags                = merge(local.tags, { component = "keyvault" })
+  
 }
 
 resource "azurerm_key_vault_secret" "vision_key" {
@@ -42,21 +52,16 @@ resource "azurerm_key_vault_secret" "vision_key" {
 module "cognitive_service" {
   source              = "./modules/cognitive_service"
   resource_group_name = azurerm_resource_group.rg.name
-  location            = var.location
-  env                 = var.env
+  location            = azurerm_resource_group.rg.location
   project             = var.project
   sku_name            = var.sku_name
-  tags                = var.tags
+  tags                = merge(local.tags, { component = "vision" })
 }
 
 output "vision_endpoint" {
   value = module.cognitive_service.endpoint
 }
 
-output "vision_key" {
-  value     = module.cognitive_service.primary_key
-  sensitive = true
-}
 
 resource "azurerm_role_assignment" "function_kv_access" {
   scope                = module.key_vault.key_vault_id
@@ -76,4 +81,14 @@ module "my_functions" {
   key_vault_uri      = module.key_vault.vault_uri
 }
 
+resource "azurerm_role_assignment" "function_read_images" {
+  scope                = module.storage.images_container_id
+  role_definition_name = "Storage Blob Data Reader"
+  principal_id         = module.my_functions.function_identity_principal_id
+}
 
+resource "azurerm_role_assignment" "function_write_results" {
+  scope                = module.storage.results_container_id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = module.my_functions.function_identity_principal_id
+}

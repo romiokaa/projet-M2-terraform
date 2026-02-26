@@ -4,6 +4,7 @@ variable "resource_group_name" {
 }
 variable "location" {
     type = string
+    default = "Switzerland North"
     description = ""
 }
 variable "project_name" {
