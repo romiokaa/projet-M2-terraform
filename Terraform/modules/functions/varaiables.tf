@@ -20,7 +20,7 @@ variable "storage_account_access_key" {
     type = string
     description = ""
 }
-variable "blob_connection_string" {
+variable "storage_account_url" {
     type = string
     description = ""
 }

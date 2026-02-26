@@ -28,7 +28,7 @@ resource "azurerm_linux_function_app" "python_func" {
   
   app_settings = {
     "FUNCTIONS_WORKER_RUNTIME"       = "python"
-    "BLOB_CONNECTION_STRING"         = var.blob_connection_string
+    "BLOB_CONNECTION_STRING"         = var.storage_account_url
     "AI_VISION_ENDPOINT"             = var.ai_vision_endpoint
     "AI_VISION_KEY"                  = var.ai_vision_key
   }
