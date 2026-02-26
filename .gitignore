@@ -172,6 +172,24 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+# Node
+node_modules/
+npm-debug.log
+
+# Env
+.env
+
+# Node
+node_modules/
+npm-debug.log
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+
+# Env
+.env
+
 #functionignore
 .git*
 .vscode

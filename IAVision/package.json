@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@azure-rest/ai-vision-image-analysis": "^1.0.0-beta.3",
+    "@azure/functions": "^4.11.2"
+  }
+}
