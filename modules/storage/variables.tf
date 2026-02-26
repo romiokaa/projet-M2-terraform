@@ -1,24 +1,24 @@
 variable "resource_group_name" {
-  description = "Nom Resource Group" 
+  description = "Nom Resource Group"
   type        = string
 }
 
 variable "location" {
-  description = "Région" 
+  description = "Région"
   type        = string
 }
 
 variable "prefix" {
-  description = "Préfixe nommage" 
+  description = "Préfixe nommage"
   type        = string
 }
 
 variable "environment" {
-  description = "Environnement (dev/prod)" 
+  description = "Environnement (dev/prod)"
   type        = string
 }
 
 variable "tags" {
-  description = "Tags ressources" 
+  description = "Tags ressources"
   type        = map(string)
 }
