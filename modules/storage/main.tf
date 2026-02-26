@@ -10,7 +10,7 @@ resource "azurerm_storage_account" "storage" {
   public_network_access_enabled = true
 
   network_rules {
-    default_action = "Allow"
+    default_action = "Deny"
     bypass         = ["AzureServices"]
     ip_rules       = [var.allowed_ip]
   }
