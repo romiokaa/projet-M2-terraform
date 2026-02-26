@@ -33,3 +33,8 @@ variable "allowed_ip" {
   type        = string
   description = "IP autorisée pour le firewall"
 }
+
+variable "admin_email" {
+  type        = string
+  description = "Adresse email qui recevra les alertes de monitoring"
+}
