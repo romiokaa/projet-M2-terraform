@@ -1,6 +1,6 @@
 # modules/functions/main.tf
 
-# 1. Plan de service (Consommation / Serverless)
+# Plan de service 
 resource "azurerm_service_plan" "func_plan" {
   name                = "sp-${var.project_name}"
   location            = var.location
@@ -9,7 +9,7 @@ resource "azurerm_service_plan" "func_plan" {
   sku_name            = "Y1" # Plan Gratuit/Consommation
 }
 
-# 2. La Function App
+# La Function App
 resource "azurerm_linux_function_app" "python_func" {
   name                = "func-${var.project_name}"
   location            = var.location
