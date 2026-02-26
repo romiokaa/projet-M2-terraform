@@ -23,9 +23,8 @@ variable "tags" {
   type        = map(string)
 }
 
-variable "function_app_id" {
+variable "function_principal_id" {
   type        = string
-  description = "ID Function App"
   default     = null 
 }
 

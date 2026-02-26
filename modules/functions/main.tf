@@ -16,7 +16,6 @@ resource "azurerm_linux_function_app" "python_func" {
   resource_group_name = var.resource_group_name
 
   storage_account_name       = var.storage_account_name
-  storage_account_access_key = var.storage_account_access_key
   service_plan_id            = azurerm_service_plan.func_plan.id
 
   site_config {
@@ -26,12 +25,11 @@ resource "azurerm_linux_function_app" "python_func" {
   }
 
   
-  app_settings = {
-    "FUNCTIONS_WORKER_RUNTIME"       = "python"
-    "BLOB_CONNECTION_STRING"         = var.storage_account_url
-    "AI_VISION_ENDPOINT"             = var.ai_vision_endpoint
-    "AI_VISION_KEY"                  = var.ai_vision_key
-  }
+app_settings = {
+  "FUNCTIONS_WORKER_RUNTIME" = "python"
+  VISION_KEY = "@Microsoft.KeyVault(SecretUri=${var.key_vault_uri}secrets/VISION-KEY/)"
+  VISION_ENDPOINT = var.ai_vision_endpoint
+}
 
   identity {
     type = "SystemAssigned"

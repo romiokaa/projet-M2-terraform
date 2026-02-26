@@ -13,3 +13,4 @@ output "images_container_name" {
 output "results_container_name" {
   value = azurerm_storage_container.results.name
 }
+

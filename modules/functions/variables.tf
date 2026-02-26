@@ -16,10 +16,7 @@ variable "storage_account_name" {
     type = string
     description = ""
 }
-variable "storage_account_access_key" {
-    type = string
-    description = ""
-}
+
 variable "storage_account_url" {
     type = string
     description = ""
@@ -31,7 +28,7 @@ variable "ai_vision_endpoint" {
     description = "" 
 }
 
-variable "ai_vision_key" { 
-    type = string
-    description = ""
+ variable "key_vault_uri" {
+   type = string
+   description = "URI du Key Vault"
  }
