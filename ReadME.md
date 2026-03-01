@@ -1,8 +1,6 @@
 # 📘 Projet M2 – Infrastructure as Code & IA  
 ## Plateforme OCR sécurisée sur Microsoft Azure
 
----
-
 ## 🎯 Objectif du projet
 
 Ce projet a pour objectif de concevoir et déployer une plateforme OCR (Reconnaissance Optique de Caractères) sur Microsoft Azure en utilisant les principes d’Infrastructure as Code avec Terraform.
@@ -15,7 +13,6 @@ L’application permet :
 - Une gestion sécurisée des secrets via Azure Key Vault  
 - Une authentification sécurisée via Managed Identity  
 
----
 
 ## 🏗 Architecture globale
 
@@ -29,8 +26,6 @@ Azure AI Vision (OCR - Read API)
    ↓
 Texte extrait → Blob Storage (container ocr-results)
 
----
-
 ## 👩‍💻 Organisation de l’équipe
 
 Le projet a été divisé en trois parties :
@@ -40,8 +35,6 @@ Le projet a été divisé en trois parties :
 - 👤 Moi(Brassica) : Azure AI Vision + Key Vault + Sécurité (Managed Identity & RBAC)  
 
 Chaque partie a été développée indépendamment puis intégrée dans une architecture commune.
-
----
 
 ## 📂 Structure du projet
 
