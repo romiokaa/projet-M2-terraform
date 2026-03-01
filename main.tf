@@ -39,8 +39,8 @@ module "key_vault" {
   location            = azurerm_resource_group.rg.location
   tenant_id           = data.azurerm_client_config.current.tenant_id
   project             = var.project
-  tags                = merge(local.tags, { component = "keyvault" })
-  
+  suffix              = local.suffix
+  tags                = merge(local.tags, { component = "keyvault" }) 
 }
 
 resource "azurerm_key_vault_secret" "vision_key" {
@@ -71,7 +71,7 @@ resource "azurerm_role_assignment" "function_kv_access" {
 
 module "my_functions" {
   source              = "./modules/functions"
-  project_name        = "mon-projet-ia"
+  project_name        = "mon-projet-ia-${local.suffix}"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   storage_account_name        = module.storage.storage_account_name
@@ -91,4 +91,10 @@ resource "azurerm_role_assignment" "function_write_results" {
   scope                = module.storage.results_container_id
   role_definition_name = "Storage Blob Data Contributor"
   principal_id         = module.my_functions.function_identity_principal_id
+}
+
+resource "azurerm_role_assignment" "admin_kv_access" {
+  scope                = module.key_vault.key_vault_id
+  role_definition_name = "Key Vault Secrets Officer"
+  principal_id         = data.azurerm_client_config.current.object_id
 }

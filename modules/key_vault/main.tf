@@ -1,5 +1,5 @@
 resource "azurerm_key_vault" "kv" {
-  name = "cv-${var.project}-${var.suffix}"
+  name                = substr("kv-${var.project}-${var.suffix}", 0, 24)
   location                    = var.location
   resource_group_name         = var.resource_group_name
   tenant_id                   = var.tenant_id

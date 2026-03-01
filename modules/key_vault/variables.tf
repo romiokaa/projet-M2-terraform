@@ -13,7 +13,8 @@ variable "tenant_id" {
 
 variable "project" { 
     type = string 
-    }
+    default = "myprojectv2"
+}
 
    
 variable "tags" { 
